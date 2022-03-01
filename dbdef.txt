@@ -1,0 +1,33 @@
+--Trit(tritid, ritnr, isHeen, vertrektijd, serie)
+--Brit(britid, ritnr, isHeen, vertrektijd, lijn)
+
+CREATE TABLE Trit (
+    tritid      INT         PRIMARY KEY,
+    ritnr       INT         NOT NULL,
+    isHeen      BOOLEAN     NOT NULL,
+    vertrektijd TIMESTAMP   NOT NULL,
+    serie       INT         FOREIGN KEY REFERENCES Tserie(serieid) NOT NULL
+);
+
+CREATE TABLE Brit (
+    britid      INT         PRIMARY KEY,
+    ritnr       INT         NOT NULL,
+    isHeen      BOOLEAN     NOT NULL,
+    vertrektijd TIMESTAMP   NOT NULL,
+    lijn        INT         FOREIGN KEY REFERENCES Blijn(lijnid) NOT NULL
+);
+
+--Tserie(serieid, serienr, vervoerder -> bedrijfsnaam, concessie)
+--Blijn(lijnid, lijnnr, vervoerder -> bedrijfsnaam, concessie)
+
+--CREATE TABLE Tserie (
+    --serieid     INT     PRIMARY KEY,
+
+--TStoptBij(serieid, tlocatie, moment)
+--BStoptBij(lijnid, blocatie, moment)
+
+--Station(tlocatie, stopnaam, plaats)
+--Bushalte(blocatie, stopnaam, plaats, station -> tlocatie)
+
+--Vervoersbedrijf(bedrijfsnaam)
+--Concessie(concessienaam, gehouden-door -> bedrijfsnaam)
