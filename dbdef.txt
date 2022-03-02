@@ -2,26 +2,26 @@
 --Brit(britid, ritnr, isHeen, vertrektijd, lijn)
 
 CREATE TABLE Trit (
-    tritid      INT         PRIMARY KEY,
-    ritnr       INT         NOT NULL,
+    tritid      INTEGER     PRIMARY KEY,
+    ritnr       INTEGER     NOT NULL,
     isHeen      BOOLEAN     NOT NULL,
     vertrektijd TIMESTAMP   NOT NULL,
-    serie       INT         FOREIGN KEY REFERENCES Tserie(serieid) NOT NULL
+    serie       INTEGER     REFERENCES Tserie(serieid) NOT NULL
 );
 
 CREATE TABLE Brit (
-    britid      INT         PRIMARY KEY,
-    ritnr       INT         NOT NULL,
+    britid      INTEGER     PRIMARY KEY,
+    ritnr       INTEGER     NOT NULL,
     isHeen      BOOLEAN     NOT NULL,
     vertrektijd TIMESTAMP   NOT NULL,
-    lijn        INT         FOREIGN KEY REFERENCES Blijn(lijnid) NOT NULL
+    lijn        INTEGER     REFERENCES Blijn(lijnid) NOT NULL
 );
 
 --Tserie(serieid, serienr, vervoerder -> bedrijfsnaam, concessie)
 --Blijn(lijnid, lijnnr, vervoerder -> bedrijfsnaam, concessie)
 
 --CREATE TABLE Tserie (
-    --serieid     INT     PRIMARY KEY,
+    --serieid     INTEGER PRIMARY KEY,
 
 --TStoptBij(serieid, tlocatie, moment)
 --BStoptBij(lijnid, blocatie, moment)
