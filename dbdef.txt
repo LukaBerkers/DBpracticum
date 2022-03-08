@@ -44,6 +44,18 @@ CREATE TABLE Blijn (
 
 -- TODO StoptBij
 
+CREATE TABLE TStoptBij (
+    moment TEXT PRIMARY KEY,
+    tlocatie TEXT NOT NULL,
+    serieid INTEGER NOT NULL
+);
+
+CREATE TABLE BStoptBij (
+    moment TEXT PRIMARY KEY,
+    blocatie TEXT NOT NULL,
+    lijnid INTEGER NOT NULL
+);
+
 -- Station(tlocatie, stopnaam, plaats)
 -- Bushalte(blocatie, stopnaam, plaats, station -> tlocatie)
 
