@@ -1,0 +1,54 @@
+% Preamble
+\documentclass[a4paper]{scrartcl}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[dutch]{babel}
+
+% Metadata
+\title{Domein-beschrijving en ER-model}
+\author{Mirco~Braams~(0752169) \and Luuk~Berkers~(6793592)}
+\date{24 februari 2022}
+
+% Document
+\begin{document}
+    \maketitle
+
+    We maken een database van trein- en busvervoer.
+    Het systeem houdt informatie bij over concessies, vervoersbedrijven en de bijbehorende ritten, stopplaatsen en lijnen.
+
+    \begin{itemize}
+        \item Lijn: Een lijn is de route van een trein of bus die meestal meerdere malen per dag gereden wordt.
+        Bij bussen wordt dit de buslijn genoemd, bij treinen een treinserie.
+        Een lijn heeft minimaal twee stopplaatsen, namelijk een begin- en een eindpunt, deze zouden ook hetzelfde kunnen zijn, maar dan zijn er alsnog twee instanties van die relatie.
+        Treinseries kunnen alleen stoppen bij stations en buslijnen kunnen alleen stoppen bij bushaltes.
+        We gaan er van uit dat een lijn altijd door hetzelfde vervoersbedrijf wordt gereden.
+        Lijnen hebben een nummer, bij een treinserie is dat altijd een 100-voud, de treinritten die bij die serie horen komen altijd overeen met het serienummer in alles behalve de laatste twee cijfers.
+
+        \item Rit: Voor elke lijn zijn er meerdere ritten die elk op een bepaald moment gereden zullen worden. De twee soorten ritten, de busrit en de treinrit, moeten beiden informatie bevatten over één lijn. Omdat een lijn altijd door hetzelfde vervoersbedrijf wordt gereden, hoeft er geen specificatie van vervoersbedrijf per rit gemaakt te worden. Ook wordt er vanuit gegaan dat een rit altijd alle stopplaatsen van de lijn zal passeren. Er is sprake van een tegenovergestelde stopplaats volgorde als de rit een terugrit is.
+
+        \item Stopplaats: Treinen stoppen in stations en bussen bij bushaltes.
+        Soms is er een bushalte bij een station, dan vernoemen we de bushalte en het station apart, en zijn ze verbonden met de hoort-bij-relatie. Er kan meer dan een bushalte bij een station horen.
+        Net als een station kan een bushalte meerdere perrons hebben, dit telt dan als één bushalte.
+
+        \item stopt-bij: Deze relatie heeft het attribuut moment gekregen wat de verstreken tijd sinds het begin van een rit aangeeft.
+
+        \item Vervoersbedrijf: Elke voertuig die een rit rijdt wordt geleverd door een bedrijf die een concessie heeft op een bepaalde lijn. Er kan maar één bedrijf per lijn zijn maar een bedrijf kan zich over meerdere lijnen ontfermen en kan meerdere concessies hebben.
+
+        \item Concessie: Een concessie is de afspraak dat een bedrijf een lijn zal berijden, er kan maar één concessie zijn per lijn. De enige enumeratie van een concessie is de naam die hij heeft, de lijnnummer waar het over gaat en de bedrijf die de concessie heeft gemaakt.
+
+        \item Legitimatie: Een vervoersbedrijf kan alleen maar een lijn berijden als het de bijbehorende concessie bezit. De concessie is niet verbonden aan de stopplaatsen omdat meerdere lijnen dezelfde stopplaatsen kunnen bevatten.
+    \end{itemize}
+
+
+\end{document}
+
+% Lijn: _lijnid, lijnnummer
+% stopt-bij: moment
+% Stopplaats: _locatie, stopnaam, plaats
+% Rit: _ritid, ritnummer, isHeen, vertrektijd
+% Vervoersbedrijf: _bedrijfsnaam
+% Concessie: _concessienaam
+
+
+%participation constraints: zelfde voertuig, bedrijf heeft concessie,
