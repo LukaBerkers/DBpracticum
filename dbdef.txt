@@ -62,11 +62,12 @@ CREATE TABLE Bushalte (
 );
 
 -- Vervoersbedrijf(bedrijfsnaam)
--- Concessie(concessienaam, gehouden-door -> bedrijfsnaam)
 
 CREATE TABLE Vervoersbedrijf (
     bedrijfsnaam    TEXT PRIMARY KEY
 );
+
+-- Concessie(concessienaam, gehouden-door -> bedrijfsnaam)
 
 CREATE TABLE Concessie (
     concessienaam   TEXT PRIMARY KEY,
