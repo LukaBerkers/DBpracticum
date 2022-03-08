@@ -1,3 +1,5 @@
+PRAGMA foreign_keys = ON;
+
 -- Trit(tritid, ritnr, isHeen, vertrektijd, serie)
 -- Brit(britid, ritnr, isHeen, vertrektijd, lijn)
 
@@ -61,3 +63,12 @@ CREATE TABLE Bushalte (
 
 -- Vervoersbedrijf(bedrijfsnaam)
 -- Concessie(concessienaam, gehouden-door -> bedrijfsnaam)
+
+CREATE TABLE Vervoersbedrijf (
+    bedrijfsnaam    TEXT PRIMARY KEY,
+);
+
+CREATE TABLE Concessie (
+    concessienaam   TEXT PRIMARY KEY,
+    gehoudenDoor    TEXT REFERENCES Vervoersbedrijf(bedrijfsnaam),
+);
