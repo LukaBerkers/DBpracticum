@@ -4,6 +4,7 @@ PRAGMA foreign_keys = ON;
 -- Brit(britid, ritnr, isHeen, vertrektijd, lijn)
 
 -- TODO Constraint: `ritnr` matches (except last 2 digits) `serie`
+-- TODO `vertrektijd` als `TEXT` met constraint
 
 CREATE TABLE Trit (
     tritid      INTEGER     PRIMARY KEY,
@@ -40,6 +41,8 @@ CREATE TABLE Blijn (
 
 -- TStoptBij(serieid, tlocatie, moment)
 -- BStoptBij(lijnid, blocatie, moment)
+
+-- TODO StoptBij
 
 -- Station(tlocatie, stopnaam, plaats)
 -- Bushalte(blocatie, stopnaam, plaats, station -> tlocatie)
