@@ -1,0 +1,8 @@
+INSERT INTO Vervoersbedrijf
+VALUES ('Hermes');
+
+INSERT INTO Concessie
+VALUES ('Zuidoost-Brabant', 'Hermes');
+
+INSERT INTO Blijn(lijnnr, vervoerder, concessie)
+VALUES (12, 'Hermes', 'Zuidoost-Brabant');
