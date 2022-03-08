@@ -20,8 +20,19 @@ CREATE TABLE Brit (
 --Tserie(serieid, serienr, vervoerder -> bedrijfsnaam, concessie)
 --Blijn(lijnid, lijnnr, vervoerder -> bedrijfsnaam, concessie)
 
---CREATE TABLE Tserie (
-    --serieid     INTEGER PRIMARY KEY,
+CREATE TABLE Tserie (
+    serieid     INTEGER PRIMARY KEY,
+    serienr     INTEGER NOT NULL,
+    vervoerder  TEXT REFERENCES Vervoersbedrijf(bedrijfsnaam) NOT NULL,
+    concessie   TEXT REFERENCES Concessie(concessienaam) NOT NULL
+);
+
+CREATE TABLE Blijn (
+    lijnid      INTEGER PRIMARY KEY,
+    lijnnr      INTEGER NOT NULL,
+    vervoerder  TEXT REFERENCES Vervoersbedrijf(bedrijfsnaam) NOT NULL,
+    concessie   TEXT REFERENCES Concessie(concessienaam) NOT NULL
+);
 
 --TStoptBij(serieid, tlocatie, moment)
 --BStoptBij(lijnid, blocatie, moment)
