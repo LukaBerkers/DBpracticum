@@ -42,5 +42,22 @@ CREATE TABLE Blijn (
 -- Station(tlocatie, stopnaam, plaats)
 -- Bushalte(blocatie, stopnaam, plaats, station -> tlocatie)
 
+CREATE TABLE Station (
+    tlong       REAL,
+    tlat        REAL,
+    stopnaam    TEXT,
+    plaats      TEXT NOT NULL,
+    PRIMARY KEY (tlong, tlat)
+);
+
+CREATE TABLE Bushalte (
+    blong       REAL,
+    blat        REAL,
+    stopnaam    TEXT,
+    plaats      TEXT NOT NULL,
+    --station     ? TODO Misschien moeten we toch stopnaam en plaats de key maken?
+    PRIMARY KEY (blong, blat)
+);
+
 -- Vervoersbedrijf(bedrijfsnaam)
 -- Concessie(concessienaam, gehouden-door -> bedrijfsnaam)
