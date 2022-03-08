@@ -1,6 +1,8 @@
 -- Trit(tritid, ritnr, isHeen, vertrektijd, serie)
 -- Brit(britid, ritnr, isHeen, vertrektijd, lijn)
 
+-- TODO Constraint: `ritnr` matches (except last 2 digits) `serie`
+
 CREATE TABLE Trit (
     tritid      INTEGER     PRIMARY KEY,
     ritnr       INTEGER     NOT NULL,
