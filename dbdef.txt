@@ -41,8 +41,6 @@ CREATE TABLE Blijn (
 -- TStoptBij(serieid, tlocatie, moment)
 -- BStoptBij(lijnid, blocatie, moment)
 
--- TODO Hebben we de id's eigenlijk wel nodig?
-
 -- Station(tlocatie, stopnaam, plaats)
 -- Bushalte(blocatie, stopnaam, plaats, station -> tlocatie)
 
