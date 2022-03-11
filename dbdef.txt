@@ -4,7 +4,6 @@ PRAGMA foreign_keys = ON;
 -- Brit(britid, ritnr, isHeen, vertrektijd, lijn)
 
 -- TODO Constraint: `ritnr` matches (except last 2 digits) `serie`
--- TODO `vertrektijd` als `TEXT` met constraint
 -- TODO Write constraint to check if `vertrektijd` is a correctly formatted
 --      datetime
 
@@ -14,7 +13,8 @@ CREATE TABLE Trit (
     isHeen      BOOLEAN     NOT NULL,
     -- Unforunately, times can only be represented as text in SQLite
     vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm:ss
-    serie       INTEGER     REFERENCES Tserie(serieid) NOT NULL
+    serie       INTEGER     REFERENCES Tserie(serieid) NOT NULL,
+    UNIQUE (ritnr, vertrektijd, serie)
 );
 
 CREATE TABLE Brit (
@@ -22,7 +22,8 @@ CREATE TABLE Brit (
     ritnr       INTEGER     NOT NULL,
     isHeen      BOOLEAN     NOT NULL,
     vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm:ss
-    lijn        INTEGER     REFERENCES Blijn(lijnid) NOT NULL
+    lijn        INTEGER     REFERENCES Blijn(lijnid) NOT NULL,
+    UNIQUE (ritnr, vertrektijd, lijn)
 );
 
 -- Tserie(serieid, serienr, vervoerder -> bedrijfsnaam, concessie)
@@ -31,8 +32,8 @@ CREATE TABLE Brit (
 CREATE TABLE Tserie (
     serieid     INTEGER PRIMARY KEY,
     serienr     INTEGER NOT NULL,
-    vervoerder  TEXT REFERENCES Vervoersbedrijf(bedrijfsnaam) NOT NULL,
-    concessie   TEXT REFERENCES Concessie(concessienaam) NOT NULL
+    vervoerder  TEXT    REFERENCES Vervoersbedrijf(bedrijfsnaam) NOT NULL,
+    concessie   TEXT    REFERENCES Concessie(concessienaam) NOT NULL
 );
 
 CREATE TABLE Blijn (
@@ -50,7 +51,7 @@ CREATE TABLE Blijn (
 CREATE TABLE TStoptBij (
     moment      TEXT    NOT NULL,    -- Format: hh:mm:ss
     station     INTEGER REFERENCES Station(stationid) NOT NULL,
-    serieid     INTEGER REFERENCES Tserie(serieid NOT NULL
+    serieid     INTEGER REFERENCES Tserie(serieid) NOT NULL
 );
 
 CREATE TABLE BStoptBij (
@@ -67,7 +68,8 @@ CREATE TABLE Station (
     longitude   REAL NOT NULL,
     latitude    REAL NOT NULL,
     stopnaam    TEXT,
-    plaats      TEXT NOT NULL
+    plaats      TEXT NOT NULL,
+    UNIQUE (longitude, latitude)
 );
 
 CREATE TABLE Bushalte (
@@ -76,7 +78,8 @@ CREATE TABLE Bushalte (
     latitude    REAL NOT NULL,
     stopnaam    TEXT,
     plaats      TEXT NOT NULL,
-    station     INTEGER REFERENCES Station(stationid)
+    station     INTEGER REFERENCES Station(stationid),
+    UNIQUE (longitude, latitude)
 );
 
 -- Vervoersbedrijf(bedrijfsnaam)
