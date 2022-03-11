@@ -5,12 +5,15 @@ PRAGMA foreign_keys = ON;
 
 -- TODO Constraint: `ritnr` matches (except last 2 digits) `serie`
 -- TODO `vertrektijd` als `TEXT` met constraint
+-- TODO Write constraint to check if `vertrektijd` is a correctly formatted
+--      datetime
 
 CREATE TABLE Trit (
     tritid      INTEGER     PRIMARY KEY,
     ritnr       INTEGER     NOT NULL,
     isHeen      BOOLEAN     NOT NULL,
-    vertrektijd TIMESTAMP   NOT NULL,
+    -- Unforunately, times can only be represented as text in SQLite
+    vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm:ss
     serie       INTEGER     REFERENCES Tserie(serieid) NOT NULL
 );
 
@@ -18,7 +21,7 @@ CREATE TABLE Brit (
     britid      INTEGER     PRIMARY KEY,
     ritnr       INTEGER     NOT NULL,
     isHeen      BOOLEAN     NOT NULL,
-    vertrektijd TIMESTAMP   NOT NULL,
+    vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm:ss
     lijn        INTEGER     REFERENCES Blijn(lijnid) NOT NULL
 );
 
@@ -45,7 +48,6 @@ CREATE TABLE Blijn (
 -- TODO Write constraint to check if `moment` is a correctly formatted time
 
 CREATE TABLE TStoptBij (
-    -- Unforunately, times can only be represented as text in SQLite
     moment      TEXT    NOT NULL,    -- Format: hh:mm:ss
     station     INTEGER REFERENCES Station(stationid) NOT NULL,
     serieid     INTEGER REFERENCES Tserie(serieid NOT NULL
