@@ -3,7 +3,8 @@ PRAGMA foreign_keys = ON;
 -- Trit(tritid, ritnr, isHeen, vertrektijd, serie)
 -- Brit(britid, ritnr, isHeen, vertrektijd, lijn)
 
--- TODO Constraint: `ritnr` matches (except last 2 digits) `serie`
+-- TODO Constraint: `ritnr` matches (except last 2 digits) `serie`, can only be
+--      done using triggers
 -- TODO Write constraint to check if `vertrektijd` is a correctly formatted
 --      datetime
 
@@ -14,7 +15,8 @@ CREATE TABLE Trit (
     -- Unforunately, times can only be represented as text in SQLite
     vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm
     serie       INTEGER     REFERENCES Tserie(serieid) NOT NULL,
-    UNIQUE (ritnr, vertrektijd, serie)
+    UNIQUE (ritnr, vertrektijd, serie),
+    CHECK (ritnr % 2 = isHeen)
 );
 
 CREATE TABLE Brit (
@@ -23,7 +25,8 @@ CREATE TABLE Brit (
     isHeen      BOOLEAN     NOT NULL,
     vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm
     lijn        INTEGER     REFERENCES Blijn(lijnid) NOT NULL,
-    UNIQUE (ritnr, vertrektijd, lijn)
+    UNIQUE (ritnr, vertrektijd, lijn),
+    CHECK (ritnr % 2 = isHeen)
 );
 
 -- Tserie(serieid, serienr, vervoerder -> bedrijfsnaam, concessie)
