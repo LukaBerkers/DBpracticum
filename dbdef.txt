@@ -42,14 +42,17 @@ CREATE TABLE Blijn (
 -- TStoptBij(serieid, tlocatie, moment)
 -- BStoptBij(lijnid, blocatie, moment)
 
+-- TODO Write constraint to check if `moment` is a correctly formatted time
+
 CREATE TABLE TStoptBij (
-    moment      TEXT    PRIMARY KEY,
+    -- Unforunately, times can only be represented as text in SQLite
+    moment      TEXT    PRIMARY KEY,    -- Format: hh:mm:ss
     station     INTEGER REFERENCES Station(stationid),
     serieid     INTEGER REFERENCES Tserie(serieid)
 );
 
 CREATE TABLE BStoptBij (
-    moment      TEXT    PRIMARY KEY,
+    moment      TEXT    PRIMARY KEY,    -- Format: hh:mm:ss
     blocatie    INTEGER REFERENCES Bushalte(halteid),
     lijnid      INTEGER REFERENCES Blijn(lijnid)
 );
