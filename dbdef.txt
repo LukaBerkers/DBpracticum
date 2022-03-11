@@ -46,15 +46,15 @@ CREATE TABLE Blijn (
 
 CREATE TABLE TStoptBij (
     -- Unforunately, times can only be represented as text in SQLite
-    moment      TEXT    PRIMARY KEY,    -- Format: hh:mm:ss
-    station     INTEGER REFERENCES Station(stationid),
-    serieid     INTEGER REFERENCES Tserie(serieid)
+    moment      TEXT    NOT NULL,    -- Format: hh:mm:ss
+    station     INTEGER REFERENCES Station(stationid) NOT NULL,
+    serieid     INTEGER REFERENCES Tserie(serieid NOT NULL
 );
 
 CREATE TABLE BStoptBij (
-    moment      TEXT    PRIMARY KEY,    -- Format: hh:mm:ss
-    blocatie    INTEGER REFERENCES Bushalte(halteid),
-    lijnid      INTEGER REFERENCES Blijn(lijnid)
+    moment      TEXT    NOT NULL,    -- Format: hh:mm:ss
+    blocatie    INTEGER REFERENCES Bushalte(halteid) NOT NULL,
+    lijnid      INTEGER REFERENCES Blijn(lijnid) NOT NULL
 );
 
 -- Station(tlocatie, stopnaam, plaats)
