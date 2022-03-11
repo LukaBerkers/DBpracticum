@@ -64,7 +64,7 @@ CREATE TABLE Station (
     longitude   REAL NOT NULL,
     latitude    REAL NOT NULL,
     stopnaam    TEXT,
-    plaats      TEXT NOT NULL,
+    plaats      TEXT NOT NULL
 );
 
 CREATE TABLE Bushalte (
