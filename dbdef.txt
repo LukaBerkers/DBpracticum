@@ -12,7 +12,7 @@ CREATE TABLE Trit (
     ritnr       INTEGER     NOT NULL,
     isHeen      BOOLEAN     NOT NULL,
     -- Unforunately, times can only be represented as text in SQLite
-    vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm:ss
+    vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm
     serie       INTEGER     REFERENCES Tserie(serieid) NOT NULL,
     UNIQUE (ritnr, vertrektijd, serie)
 );
@@ -21,7 +21,7 @@ CREATE TABLE Brit (
     britid      INTEGER     PRIMARY KEY,
     ritnr       INTEGER     NOT NULL,
     isHeen      BOOLEAN     NOT NULL,
-    vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm:ss
+    vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm
     lijn        INTEGER     REFERENCES Blijn(lijnid) NOT NULL,
     UNIQUE (ritnr, vertrektijd, lijn)
 );
@@ -49,13 +49,13 @@ CREATE TABLE Blijn (
 -- TODO Write constraint to check if `moment` is a correctly formatted time
 
 CREATE TABLE TStoptBij (
-    moment      TEXT    NOT NULL,    -- Format: hh:mm:ss
+    moment      TEXT    NOT NULL,    -- Format: hh:mm
     station     INTEGER REFERENCES Station(stationid) NOT NULL,
     serieid     INTEGER REFERENCES Tserie(serieid) NOT NULL
 );
 
 CREATE TABLE BStoptBij (
-    moment      TEXT    NOT NULL,    -- Format: hh:mm:ss
+    moment      TEXT    NOT NULL,    -- Format: hh:mm
     blocatie    INTEGER REFERENCES Bushalte(halteid) NOT NULL,
     lijnid      INTEGER REFERENCES Blijn(lijnid) NOT NULL
 );
