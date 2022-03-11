@@ -42,18 +42,16 @@ CREATE TABLE Blijn (
 -- TStoptBij(serieid, tlocatie, moment)
 -- BStoptBij(lijnid, blocatie, moment)
 
--- TODO StoptBij
-
 CREATE TABLE TStoptBij (
     moment      TEXT    PRIMARY KEY,
-    tlocatie    TEXT    NOT NULL,
-    serieid     INTEGER NOT NULL
+    station     INTEGER REFERENCES Station(stationid),
+    serieid     INTEGER REFERENCES Tserie(serieid)
 );
 
 CREATE TABLE BStoptBij (
     moment      TEXT    PRIMARY KEY,
-    blocatie    TEXT    NOT NULL,
-    lijnid      INTEGER NOT NULL
+    blocatie    INTEGER REFERENCES Bushalte(halteid),
+    lijnid      INTEGER REFERENCES Blijn(lijnid)
 );
 
 -- Station(tlocatie, stopnaam, plaats)
