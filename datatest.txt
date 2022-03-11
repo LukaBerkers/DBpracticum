@@ -6,3 +6,24 @@ VALUES ('Zuidoost-Brabant', 'Hermes');
 
 INSERT INTO Blijn(lijnnr, vervoerder, concessie)
 VALUES (12, 'Hermes', 'Zuidoost-Brabant');
+
+
+INSERT INTO Vervoersbedrijf
+VALUES ('NS');
+
+INSERT INTO Concessie
+VALUES ('Hoofdrailnet', 'NS');
+
+INSERT INTO Tserie
+VALUES (0, 500, 'NS', 'Hoofdrailnet');
+
+INSERT INTO Tserie
+VALUES (1, 600, 'NS', 'Hoofdrailnet');
+
+-- Correct
+INSERT INTO Trit (ritnr, isHeen, vertrektijd, serie)
+VALUES (551, TRUE, '2022-03-08 14:05', 0);
+
+-- Wrong
+INSERT INTO Trit (ritnr, isHeen, vertrektijd, serie)
+VALUES (552, FALSE, '2022-03-08 14:05', 1);
