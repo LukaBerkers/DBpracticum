@@ -59,7 +59,7 @@ CREATE TABLE TStoptBij (
 
 CREATE TABLE BStoptBij (
     moment      TEXT    NOT NULL,    -- Format: hh:mm
-    blocatie    INTEGER REFERENCES Bushalte(halteid) NOT NULL,
+    halte       INTEGER REFERENCES Bushalte(halteid) NOT NULL,
     lijnid      INTEGER REFERENCES Blijn(lijnid) NOT NULL
 );
 
