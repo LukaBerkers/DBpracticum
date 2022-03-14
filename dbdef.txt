@@ -3,11 +3,6 @@ PRAGMA foreign_keys = ON;
 -- Trit(tritid, ritnr, isHeen, vertrektijd, serie)
 -- Brit(britid, ritnr, isHeen, vertrektijd, lijn)
 
--- TODO Constraint: `ritnr` matches (except last 2 digits) `serie`, can only be
---      done using triggers
--- TODO Write constraint to check if `vertrektijd` is a correctly formatted
---      datetime
-
 CREATE TABLE Trit (
     tritid      INTEGER     PRIMARY KEY,
     ritnr       INTEGER     NOT NULL,
@@ -48,8 +43,6 @@ CREATE TABLE Blijn (
 
 -- TStoptBij(serieid, tlocatie, moment)
 -- BStoptBij(lijnid, blocatie, moment)
-
--- TODO Write constraint to check if `moment` is a correctly formatted time
 
 CREATE TABLE TStoptBij (
     moment      TEXT    NOT NULL,    -- Format: hh:mm
