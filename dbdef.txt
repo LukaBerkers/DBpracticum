@@ -1,12 +1,7 @@
 PRAGMA foreign_keys = ON;
 
--- Trit(tritid, ritnr, isHeen, vertrektijd, serie)
--- Brit(britid, ritnr, isHeen, vertrektijd, lijn)
-
 -- TODO Constraint: `ritnr` matches (except last 2 digits) `serie`, can only be
 --      done using triggers
--- TODO Write constraint to check if `vertrektijd` is a correctly formatted
---      datetime
 
 CREATE TABLE Trit (
     tritid      INTEGER     PRIMARY KEY,
@@ -33,8 +28,6 @@ CREATE TABLE Brit (
     CHECK (vertrektijd IS strftime('%Y-%m-%d %H:%M', vertrektijd))
 );
 
--- Tserie(serieid, serienr, vervoerder -> bedrijfsnaam, concessie)
--- Blijn(lijnid, lijnnr, vervoerder -> bedrijfsnaam, concessie)
 
 CREATE TABLE Tserie (
     serieid     INTEGER PRIMARY KEY,
@@ -52,8 +45,6 @@ CREATE TABLE Blijn (
     UNIQUE (lijnnr, concessie)
 );
 
--- TStoptBij(serieid, tlocatie, moment)
--- BStoptBij(lijnid, blocatie, moment)
 
 CREATE TABLE TStoptBij (
     moment      TIME    NOT NULL,    -- Format: hh:mm
@@ -71,8 +62,6 @@ CREATE TABLE BStoptBij (
     CHECK (moment IS strftime('%H:%M', moment))
 );
 
--- Station(tlocatie, stopnaam, plaats)
--- Bushalte(blocatie, stopnaam, plaats, station -> tlocatie)
 
 CREATE TABLE Station (
     stationid   INTEGER PRIMARY KEY,
@@ -93,13 +82,11 @@ CREATE TABLE Bushalte (
     UNIQUE (longitude, latitude)
 );
 
--- Vervoersbedrijf(bedrijfsnaam)
 
 CREATE TABLE Vervoersbedrijf (
     bedrijfsnaam    TEXT PRIMARY KEY
 );
 
--- Concessie(concessienaam, gehouden-door -> bedrijfsnaam)
 
 CREATE TABLE Concessie (
     concessienaam   TEXT PRIMARY KEY,
