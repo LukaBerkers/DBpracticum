@@ -12,21 +12,25 @@ CREATE TABLE Trit (
     tritid      INTEGER     PRIMARY KEY,
     ritnr       INTEGER     NOT NULL,
     isHeen      BOOLEAN     NOT NULL,
-    -- Unforunately, times can only be represented as text in SQLite
-    vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm
+    vertrektijd DATETIME    NOT NULL,   -- Format: yyyy-mm-dd hh:mm
     serie       INTEGER     REFERENCES Tserie(serieid) NOT NULL,
     UNIQUE (ritnr, vertrektijd, serie),
-    CHECK (ritnr % 2 = isHeen)
+    CHECK (ritnr % 2 = isHeen),
+    -- Check the formatting of `vertrektijd`
+    -- If the datetime is correctly formatted, the formatting function should
+    -- return the same string it was passed and the check will pass.
+    CHECK (vertrektijd IS strftime('%Y-%m-%d %H:%M', vertrektijd))
 );
 
 CREATE TABLE Brit (
     britid      INTEGER     PRIMARY KEY,
     ritnr       INTEGER     NOT NULL,
     isHeen      BOOLEAN     NOT NULL,
-    vertrektijd TEXT        NOT NULL,   -- Format: yyyy-mm-dd hh:mm
+    vertrektijd DATETIME    NOT NULL,   -- Format: yyyy-mm-dd hh:mm
     lijn        INTEGER     REFERENCES Blijn(lijnid) NOT NULL,
     UNIQUE (ritnr, vertrektijd, lijn),
-    CHECK (ritnr % 2 = isHeen)
+    CHECK (ritnr % 2 = isHeen),
+    CHECK (vertrektijd IS strftime('%Y-%m-%d %H:%M', vertrektijd))
 );
 
 -- Tserie(serieid, serienr, vervoerder -> bedrijfsnaam, concessie)
@@ -36,31 +40,35 @@ CREATE TABLE Tserie (
     serieid     INTEGER PRIMARY KEY,
     serienr     INTEGER NOT NULL,
     vervoerder  TEXT    REFERENCES Vervoersbedrijf(bedrijfsnaam) NOT NULL,
-    concessie   TEXT    REFERENCES Concessie(concessienaam) NOT NULL
+    concessie   TEXT    REFERENCES Concessie(concessienaam) NOT NULL,
+    UNIQUE (serienr, concessie)
 );
 
 CREATE TABLE Blijn (
     lijnid      INTEGER PRIMARY KEY,
     lijnnr      INTEGER NOT NULL,
     vervoerder  TEXT REFERENCES Vervoersbedrijf(bedrijfsnaam) NOT NULL,
-    concessie   TEXT REFERENCES Concessie(concessienaam) NOT NULL
+    concessie   TEXT REFERENCES Concessie(concessienaam) NOT NULL,
+    UNIQUE (lijnnr, concessie)
 );
 
 -- TStoptBij(serieid, tlocatie, moment)
 -- BStoptBij(lijnid, blocatie, moment)
 
--- TODO Write constraint to check if `moment` is a correctly formatted time
-
 CREATE TABLE TStoptBij (
-    moment      TEXT    NOT NULL,    -- Format: hh:mm
+    moment      TIME    NOT NULL,    -- Format: hh:mm
     station     INTEGER REFERENCES Station(stationid) NOT NULL,
-    serieid     INTEGER REFERENCES Tserie(serieid) NOT NULL
+    serieid     INTEGER REFERENCES Tserie(serieid) NOT NULL,
+    PRIMARY KEY (moment, station, serieid),
+    CHECK (moment IS strftime('%H:%M', moment))
 );
 
 CREATE TABLE BStoptBij (
-    moment      TEXT    NOT NULL,    -- Format: hh:mm
+    moment      TIME    NOT NULL,    -- Format: hh:mm
     halte       INTEGER REFERENCES Bushalte(halteid) NOT NULL,
-    lijnid      INTEGER REFERENCES Blijn(lijnid) NOT NULL
+    lijnid      INTEGER REFERENCES Blijn(lijnid) NOT NULL,
+    PRIMARY KEY (moment, halte, lijnid),
+    CHECK (moment IS strftime('%H:%M', moment))
 );
 
 -- Station(tlocatie, stopnaam, plaats)
