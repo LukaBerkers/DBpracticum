@@ -1,0 +1,22 @@
+-- Laat van een treinrit zien waar hij stopt en om welke tijden
+SELECT
+    ritnr,
+    vervoerder,
+    CASE WHEN isHeen
+        THEN datetime(  vertrektijd,
+                        time(moment)
+                     )
+        ELSE datetime(  vertrektijd,
+                        '-' || time(moment),
+                        (SELECT MAX(moment) FROM TStoptBij WHERE serieid = Trit.serie)
+                     )
+    END AS tijd,
+    stopnaam,
+    longitude,
+    latitude
+FROM
+    Trit
+    JOIN Tserie ON serieid = serie
+    NATURAL JOIN TStoptBij
+    JOIN Station ON stationid = station
+WHERE ritnr = 6474;

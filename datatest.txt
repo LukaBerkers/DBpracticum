@@ -14,16 +14,461 @@ VALUES ('NS');
 INSERT INTO Concessie
 VALUES ('Hoofdrailnet', 'NS');
 
-INSERT INTO Tserie
-VALUES (0, 500, 'NS', 'Hoofdrailnet');
+INSERT INTO Tserie (serienr, vervoerder, concessie)
+VALUES (500, 'NS', 'Hoofdrailnet');
 
-INSERT INTO Tserie
-VALUES (1, 600, 'NS', 'Hoofdrailnet');
+INSERT INTO Tserie (serienr, vervoerder, concessie)
+VALUES (600, 'NS', 'Hoofdrailnet');
 
 -- Correct
 INSERT INTO Trit (ritnr, isHeen, vertrektijd, serie)
-VALUES (551, TRUE, '2022-03-08 14:05', 0);
+VALUES (
+    551,
+    TRUE,
+    '2022-03-08 14:05',
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
 
 -- Wrong
 INSERT INTO Trit (ritnr, isHeen, vertrektijd, serie)
-VALUES (552, FALSE, '2022-03-08 14:05', 1);
+VALUES (
+    552,
+    FALSE,
+    '2022-03-08 14:05',
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 600
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+
+INSERT INTO Tserie (serienr, vervoerder, concessie)
+VALUES (3500, 'NS', 'Hoofdrailnet');
+
+INSERT INTO Trit (ritnr, isHeen, vertrektijd, serie)
+VALUES (
+    3553,
+    TRUE,
+    '2022-03-15 14:48',
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO Trit (ritnr, isHeen, vertrektijd, serie)
+VALUES (
+    3554,
+    FALSE,
+    '2022-03-15 14:33',
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO Trit (ritnr, isHeen, vertrektijd, serie)
+VALUES (
+    3555,
+    TRUE,
+    '2022-03-15 15:18',
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (52.3095549, 4.7623719, 'Schiphol Airport', 'Schiphol');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (52.3387804, 4.8731278, 'Amsterdam Zuid', 'Amsterdam');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (52.3116532, 4.9471056, 'Amsterdam Bijlmer ArenA', 'Amsterdam');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (52.0895954, 5.1091981, 'Utrecht Centraal', 'Utrecht');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.6896246, 5.2930379, '''s-Hertogenbosch', '''s-Hertogenbosch');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.4429804, 5.4803474, 'Eindhoven Centraal', 'Eindhoven');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.4754110, 5.6617236, 'Helmond', 'Helmond');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.4560704, 5.7880886, 'Deurne', 'Deurne');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.4269307, 6.0413095, 'Horst-Sevenum', 'Hegelsom');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.3723302, 6.1551662, 'Blerick', 'Venlo');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.3647015, 6.1714059, 'Venlo', 'Venlo');
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:00',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Schiphol Airport'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:08',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Amsterdam Zuid'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:14',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Amsterdam Bijlmer ArenA'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:36',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Utrecht Centraal'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '01:07',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = '''s-Hertogenbosch'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '01:31',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Eindhoven Centraal'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '01:40',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Helmond'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '01:47',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Deurne'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '01:59',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Horst-Sevenum'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '02:06',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Blerick'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '02:10',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Venlo'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 3500
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+
+INSERT INTO Tserie (serienr, vervoerder, concessie)
+VALUES (6400, 'NS', 'Hoofdrailnet');
+
+INSERT INTO Trit (ritnr, isHeen, vertrektijd, serie)
+VALUES (
+    6474,
+    FALSE,
+    '2022-03-15 19:20',
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.5653143, 5.0486762, 'Tilburg Universiteit', 'Tilburg');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.5606170, 5.0833234, 'Tilburg', 'Tilburg');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.5820169, 5.1934345, 'Oisterwijk', 'Oisterwijk');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.5842378, 5.3189020, 'Boxtel', 'Boxtel');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.5097733, 5.3890772, 'Best', 'Best');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.4503095, 5.4569206, 'Eindhoven Strijp-S', 'Eindhoven');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.4198740, 5.5506337, 'Geldrop', 'Geldrop');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.3852329, 5.5694542, 'Heeze', 'Heeze');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.3041487, 5.6304081, 'Maarheeze', 'Maarheeze');
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (51.2487427, 5.7012032, 'Weert', 'Weert');
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:00',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Tilburg Universiteit'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:05',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Tilburg'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:11',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Oisterwijk'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:18',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Boxtel'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:24',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Best'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:30',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Eindhoven Strijp-S'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:43',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Eindhoven Centraal'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:49',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Geldrop'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '00:53',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Heeze'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '01:00',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Maarheeze'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
+
+INSERT INTO TStoptBij
+VALUES (
+    '01:06',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Weert'
+    ),
+    (   SELECT serieid
+        FROM Tserie
+        WHERE serienr = 6400
+        AND concessie = 'Hoofdrailnet'
+    )
+);
