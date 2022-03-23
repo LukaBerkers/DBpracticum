@@ -472,3 +472,252 @@ VALUES (
         AND concessie = 'Hoofdrailnet'
     )
 );
+
+
+INSERT INTO Vervoersbedrijf
+VALUES ('Qbuzz');
+
+INSERT INTO Concessie
+VALUES ('Regio Utrecht', 'Qbuzz');
+
+INSERT INTO Blijn (lijnnr, vervoerder, concessie)
+VALUES (30, 'Qbuzz', 'Regio Utrecht');
+
+INSERT INTO Brit (ritnr, isHeen, vertrektijd, lijn)
+VALUES (
+    1044,
+    FALSE,
+    '2022-03-22 12:35',
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+    )
+);
+
+INSERT INTO Station (longitude, latitude, stopnaam, plaats)
+VALUES (52.1099898, 5.1255412, 'Utrecht Overvecht', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats, station)
+VALUES (
+    52.1113593,
+    5.1249075,
+    'Station Overvecht',
+    'Utrecht',
+    (   SELECT stationid
+        FROM Station
+        WHERE stopnaam = 'Utrecht Overvecht'
+    )
+);
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.1072361, 5.1215838, 'Meester Tripkade', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.1042058, 5.1269901, 'Juliusstraat', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.1029705, 5.1329797, 'Hengeveldstraat', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.1026119, 5.1368454, 'Van Everdingenlaan', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.1010080, 5.1430258, 'Sartreweg', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.0922632, 5.1506631, 'Rijnsweerd Noord', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.0876916, 5.1576602, 'Rijnsweerd Zuid', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.0853534, 5.1681193, 'Botanische Tuinen', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.0848261, 5.1737654, 'Heidelberglaan', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.0851607, 5.1795968, 'UMC Utrecht', 'Utrecht');
+
+INSERT INTO Bushalte (longitude, latitude, stopnaam, plaats)
+VALUES (52.0901901, 5.1826256, 'WKZ/Máxima', 'Utrecht');
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:00',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Station Overvecht'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:01',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Meester Tripkade'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:03',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Juliusstraat'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:04',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Hengeveldstraat'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:05',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Van Everdingenlaan'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:06',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Sartreweg'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:09',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Rijnsweerd Noord'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:11',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Rijnsweerd Zuid'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:13',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Botanische Tuinen'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:14',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'Heidelberglaan'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:17',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'UMC Utrecht'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);
+
+INSERT INTO BStoptBij
+VALUES (
+    '00:21',
+    (   SELECT halteid
+        FROM Bushalte
+        WHERE stopnaam = 'WKZ/Máxima'
+        AND plaats = 'Utrecht'
+    ),
+    (   SELECT lijnid
+        FROM Blijn
+        WHERE lijnnr = 30
+        AND concessie = 'Regio Utrecht'
+    )
+);

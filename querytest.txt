@@ -19,4 +19,28 @@ FROM
     JOIN Tserie ON serieid = serie
     NATURAL JOIN TStoptBij
     JOIN Station ON stationid = station
-WHERE ritnr = 6474;
+ORDER BY ritnr, tijd;
+
+SELECT
+    ritnr,
+    lijnnr,
+    vervoerder,
+    CASE WHEN isHeen
+        THEN datetime(  vertrektijd,
+                        time(moment)
+                     )
+        ELSE datetime(  vertrektijd,
+                        '-' || time(moment),
+                        (SELECT MAX(moment) FROM BStoptBij WHERE lijnid = Brit.lijn)
+                     )
+    END AS tijd,
+    stopnaam,
+    plaats,
+    longitude,
+    latitude
+FROM
+    Brit
+    JOIN Blijn ON lijnid = lijn
+    NATURAL JOIN BStoptBij
+    JOIN Bushalte ON halteid = halte
+ORDER BY ritnr, tijd;
