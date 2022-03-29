@@ -1,0 +1,1 @@
+SELECT * FROM Vervoersbedrijf LEFT OUTER JOIN Concessie ON bedrijfsnaam = gehoudenDoor;
