@@ -1,1 +1,6 @@
--- (treinseries) % (stations in Eindhoven)
+-- (treinseries) % (stations in Amsterdam)
+SELECT serieid FROM TStoptBij
+WHERE station IN (
+	SELECT stationid FROM Station
+	WHERE plaats = 'Amsterdam')
+GROUP BY serieid;
