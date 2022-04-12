@@ -4,3 +4,9 @@ SELECT station.stationid, station.stopnaam
 FROM station, Bushalte
 WHERE NOT station.stationid = Bushalte.station
 GROUP BY station.stationid;
+
+-- de volgende query geeft de enige query verbonden met een bushalte.
+--SELECT station.stationid, station.stopnaam
+--FROM station, Bushalte
+--WHERE station.stationid = Bushalte.station
+--GROUP BY station.stationid;
