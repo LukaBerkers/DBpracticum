@@ -1,1 +1,6 @@
--- De Stations die geen bushalte hebben; antwoord: bestaat niet
+-- De Stations die geen bushalte hebben;
+--vertaling: de stationen die geen verbonden bushaltes hebben
+SELECT station.stationid, station.stopnaam
+FROM station, Bushalte
+WHERE NOT station.stationid = Bushalte.station
+GROUP BY station.stationid;
