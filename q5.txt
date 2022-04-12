@@ -1,1 +1,6 @@
---
+--dit geeft de "reistijd over een trein route" in uren, probleem is dat in de database gewerkt werd met vertrekmomenten niet reistijd.
+--de resultaat slaat dus nergens op, echter er geen enkele optie voor een sum query in onze database die werkelijk op iets slaat.
+--summation van groeperingen is verder ook niet mogelijk ondanks meerdere pogingen.
+
+SELECT * , sum(moment) as reistijd FROM TStoptBij
+GROUP BY serieid;
