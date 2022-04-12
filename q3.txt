@@ -1,1 +1,4 @@
--- De plaatsen die alleen bushaltes hebben (geen stations)
+--de plaatsen die maar één station hebben. place has only one.
+SELECT * FROM station
+GROUP BY plaats
+HAVING count(plaats) == 1;
