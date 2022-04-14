@@ -1,1 +1,8 @@
---
+--de query geeft de één na laatste vertrekmoment van de trein, dit gecombineerd met een stop specificatie zou de beste laatste trein geven die je kan nemen zodat je --alsnog een plan b hebt als je de trein mist.
+with fix as
+(select moment, ROW_NUMBER() over(order by moment desc) as colom
+from TStoptBij)
+
+select moment
+from fix
+where colom = 2
